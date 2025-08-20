@@ -4,6 +4,6 @@ Metro watches the shared package so any changes in packages/shared/src automatic
 
 extraNodeModules / symlink resolution
 
-Ensures imports like @halal/shared/* resolve correctly even though the package is outside node_modules.
+Ensures imports like @masjidmunchies/shared/* resolve correctly even though the package is outside node_modules.
 
 Compatible with TypeScript 4.9.5 and your Turbo monorepo setup.
