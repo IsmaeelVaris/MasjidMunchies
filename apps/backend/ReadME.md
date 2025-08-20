@@ -97,3 +97,11 @@ apps/backend/postman/MasjidMunchies-API.postman_collection.json
 ```
 
 Import this file into Postman to quickly test all backend endpoints.
+
+---
+
+## License
+
+Copyright (c) 2025 Ismaeel Varis and MasjidMunchies  
+
+This project is licensed under the MIT License. See the [LICENSE](../../LICENSE) file for details.

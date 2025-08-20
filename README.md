@@ -179,3 +179,10 @@ npx expo install typescript @types/react @types/react-native
 5. **Include in `turbo.json`** references if you want to run it via `npm run dev`.
 
 This ensures the new app/package integrates seamlessly into the monorepo.
+---
+
+## License
+
+Copyright (c) 2025 Ismaeel Varis and MasjidMunchies  
+
+This project is licensed under the MIT License. See the [LICENSE](../../LICENSE) file for details.
