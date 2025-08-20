@@ -1,4 +1,4 @@
-# HalalFoodApp
+# masjidmunchies
 
 A unique app designed for Muslims to discover halal restaurants, mosque proximity, mosque reviews, masjid events, and Islamic-only advertising. The solution includes a **web application (React)**, a **mobile app (React Native / Expo)**, and a **backend API (Node.js + TypeScript)**, all sharing the same login system and a common shared package.
 
@@ -7,7 +7,7 @@ A unique app designed for Muslims to discover halal restaurants, mosque proximit
 ## Folder Structure
 
 ```
-HalalFoodApp/
+masjidmunchies/
 │   package.json
 │   turbo.json
 │   tsconfig.json
