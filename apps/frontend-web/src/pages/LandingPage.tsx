@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "../components/Navbar"; // adjust path as needed
 
 const features = [
   {
@@ -22,7 +23,10 @@ const features = [
 const LandingPage: React.FC = () => {
   return (
     <div className="font-sans">
-
+      
+      {/* Navbar*/}
+          <Navbar />
+          
       {/* Hero Section */}
       <section className="text-textWhite text-center py-24 px-4 bg-gradient-to-r from-primary to-blue">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg">
@@ -32,9 +36,12 @@ const LandingPage: React.FC = () => {
           Discover halal restaurants, find nearby mosques, and stay updated on community events.
         </p>
         <div className="flex justify-center gap-4">
+          {/* Primary CTA */}
           <button className="bg-primary-dark text-textWhite font-semibold px-6 py-3 rounded-lg hover:bg-primary shadow-md focus:outline-none focus:ring-4 focus:ring-gold transition-colors duration-200">
             Get Started
           </button>
+
+          {/* Secondary CTA - ADA compliant hover */}
           <button className="bg-transparent border border-textWhite text-textWhite px-6 py-3 rounded-lg hover:bg-gold hover:text-textPrimary shadow-md focus:outline-none focus:ring-4 focus:ring-primary-dark transition-colors duration-200">
             Learn More
           </button>
@@ -50,7 +57,7 @@ const LandingPage: React.FC = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="p-6 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1 bg-bgLight"
+              className="p-6 rounded-xl shadow hover:shadow-lg transition-transform hover:-translate-y-1 bg-bgLight"
             >
               <h3 className="text-xl font-semibold mb-3 text-primary">
                 {feature.title}
@@ -69,7 +76,7 @@ const LandingPage: React.FC = () => {
         <p className="mb-6 text-lg md:text-xl drop-shadow-sm">
           Save your favorite places, get event reminders, and explore halal options near you.
         </p>
-          <button className="bg-primary-dark text-textWhite font-semibold px-6 py-3 rounded-lg hover:bg-primary shadow-md focus:outline-none focus:ring-4 focus:ring-gold transition-colors duration-200">
+        <button className="bg-primary-dark text-textWhite font-semibold px-6 py-3 rounded-lg hover:bg-primary shadow-md focus:outline-none focus:ring-4 focus:ring-gold transition-colors duration-200">
           Download App
         </button>
       </section>
