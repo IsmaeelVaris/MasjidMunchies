@@ -69,3 +69,7 @@ coverage/
 # Misc
 # ========================
 *.log
+
+
+# Environment variables
+.env

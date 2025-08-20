@@ -4,6 +4,18 @@ A unique app designed for Muslims to discover halal restaurants, mosque proximit
 
 ---
 
+## Tech Stack
+
+* **Frontend Web:** React + TypeScript (CRA)
+* **Frontend Mobile:** React Native + Expo + TypeScript
+* **Backend API:** Node.js + Express + TypeScript
+* **Database:** PostgreSQL (via **Supabase** for hosting/auth/storage)
+* **Monorepo Management:** Turborepo
+* **Shared Code:** TypeScript packages in `/packages/shared`
+* **Backlog & Docs:** Trello (sprint/backlog management), Google Drive (design & documentation)
+
+---
+
 ## Folder Structure
 
 ```
@@ -135,8 +147,6 @@ npm install --save-dev @types/react @types/react-native
 * Import using relative paths or `paths` in `tsconfig.json`
 
 ### 4. Expo TypeScript Errors
-
-* Run:
 
 ```bash
 npx expo install typescript @types/react @types/react-native

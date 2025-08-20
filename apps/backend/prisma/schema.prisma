@@ -1,0 +1,73 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//////////////////////
+// Models
+//////////////////////
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  marketing Boolean  @default(false)
+  createdAt DateTime @default(now())
+  reviews   Review[]
+}
+
+model Restaurant {
+  id            String   @id @default(uuid())
+  name          String
+  address       String
+  lat           Float
+  lng           Float
+  halalVerified Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  reviews       Review[] @relation("RestaurantReviews")
+}
+
+model Mosque {
+  id        String   @id @default(uuid())
+  name      String
+  address   String
+  lat       Float
+  lng       Float
+  placeId   String?
+  createdAt DateTime @default(now())
+  reviews   Review[] @relation("MosqueReviews")
+}
+
+model Review {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Relation to Restaurant
+  restaurantId String?
+  restaurant   Restaurant? @relation("RestaurantReviews", fields: [restaurantId], references: [id])
+
+  // Relation to Mosque
+  mosqueId String?
+  mosque   Mosque? @relation("MosqueReviews", fields: [mosqueId], references: [id])
+
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+}
+
+model Ad {
+  id        String   @id @default(uuid())
+  name      String
+  imageUrl  String
+  targetUrl String
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

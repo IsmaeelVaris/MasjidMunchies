@@ -2,17 +2,32 @@
   "name": "backend",
   "private": true,
   "dependencies": {
-    "express": "^4.18.2"
+    "@prisma/client": "^5.22.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/jsonwebtoken": "^9.0.10",
     "nodemon": "^3.1.10",
+    "prisma": "^5.22.0",
     "typescript": "^4.9.5"
   },
-"scripts": {
-  "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-  "build": "tsc -b",
-  "typecheck": "tsc --noEmit",
-  "clean": "rimraf dist"
-}
-
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "start": "node server.js"
+  },
+  "version": "1.0.0",
+  "description": "nodemon is a development tool for Node.js that automatically restarts your server whenever your source files change.",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
