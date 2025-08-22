@@ -19,6 +19,19 @@ PORT=3000
 > ⚠️ Do **not** commit this file to GitHub. The backend database will not work without it.
 
 ---
+### Install pnpm (if not already installed)
+
+Before running any `pnpm` commands, make sure `pnpm` is installed globally:
+
+```bash
+npm install -g pnpm
+```
+
+> Required to run `pnpm install`, `pnpm run start:all`, and other monorepo commands. Ensures faster installs and consistent dependencies.
+
+### Why `pnpm`?
+
+We use **pnpm** for faster, disk-efficient installs and stricter dependency management. It integrates well with Turborepo, ensuring consistent installs across the monorepo.
 
 ## 2. Install Dependencies
 
