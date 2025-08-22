@@ -1,18 +1,20 @@
 :root {
-  --color-green: #27B163;
-  --color-green-dark: #219150;
-  --color-blue: #2471A3;
-  --color-gold: #D4AC0D;
+  /* Primary Colors */
+  --color-black: #121212;       /* Dark base */
+  --color-green: #27B163;       /* Main brand green */
+  --color-gold: #D4AC0D;        /* Accent */
+  --color-blue: #2471A3;        /* Secondary accent */
+  --color-white: #FFFFFF;       /* Text & highlights */
 
-  --color-orange: #D35400;
-  --color-coral: #FF7043;
+  /* Backgrounds */
+  --bg-dark: #121212;            /* Main dark background */
+  --bg-secondary: #1E1E1E;       /* Card/panel backgrounds */
+  --bg-accent: #272727;          /* Hover / subtle highlights */
 
-  --bg-light: #F4F6F7;
-  --bg-gray: #D5DBDB;
-  --bg-dark: #2C3E50;
-
-  --text-primary: #1B1B1B;
-  --text-secondary: #616A6B;
-  --text-white: #FFFFFF;
-  --text-gray: #616A6B;
+  /* Text Colors */
+  --text-primary: #FFFFFF;       /* Main text */
+  --text-secondary: #A0A0A0;     /* Muted text */
+  --text-green: #27B163;         /* Highlights / success */
+  --text-gold: #D4AC0D;          /* Accent */
+  --text-blue: #2471A3;          /* Links / interactive */
 }

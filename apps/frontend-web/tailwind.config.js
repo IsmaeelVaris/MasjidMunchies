@@ -4,26 +4,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Primary Theme Colors
-        primary: "var(--color-green)",
-        "primary-dark": "var(--color-green-dark)",
-        blue: "var(--color-blue)",
+        black: "var(--color-black)",
+        green: "var(--color-green)",
         gold: "var(--color-gold)",
+        blue: "var(--color-blue)",
+        white: "var(--color-white)",
 
-        // Accent Colors
-        orange: "var(--color-orange)",
-        coral: "var(--color-coral)",
+        bgDark: "var(--bg-dark)",
+        bgSecondary: "var(--bg-secondary)",
+        bgAccent: "var(--bg-accent)",
 
-        // Background Colors
-        "bg-light": "var(--bg-light)",
-        "bg-gray": "var(--bg-gray)",
-        "bg-dark": "var(--bg-dark)",
-
-        // Text Colors
-        "text-primary": "var(--text-primary)",
-        "text-secondary": "var(--text-secondary)",
-        "text-white": "var(--text-white)",
-        "text-gray": "var(--text-gray)",
+        textPrimary: "var(--text-primary)",
+        textSecondary: "var(--text-secondary)",
+        textGreen: "var(--text-green)",
+        textGold: "var(--text-gold)",
+        textBlue: "var(--text-blue)",
       },
     },
   },
