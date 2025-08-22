@@ -1,27 +1,32 @@
 {
   "name": "masjidmunchies",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@8.10.0",
   "devDependencies": {
     "@types/express": "^4.17.23",
     "@types/node": "^24.3.0",
-    "eslint": "^9.0.0",
-    "rimraf": "^5.0.7",
+    "@types/react": "18",
+    "@types/react-dom": "18",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.33.0",
+    "postcss": "8",
+    "rimraf": "^5.0.10",
+    "tailwindcss": "3",
     "ts-node-dev": "^2.0.0",
-    "turbo": "^1.10.0",
+    "turbo": "^2.5.6",
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "dev": "turbo run dev",
+    "start:all": "turbo run dev --parallel",
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
-    "clean": "turbo run clean"
+    "clean": "turbo run clean",
+    "clean:all": "powershell -Command \"function Remove-All($path){if(Test-Path $path){Get-ChildItem $path -Force -Recurse -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue}; Remove-Item $path -Force -ErrorAction SilentlyContinue}; Remove-All '.\\node_modules'; Remove-All '.\\pnpm-lock.yaml'; Remove-All '.\\.cache'; Get-ChildItem -Directory '.\\apps' -ErrorAction SilentlyContinue | ForEach-Object { Remove-All ($_.FullName + '\\node_modules'); Remove-All ($_.FullName + '\\.cache') }; Get-ChildItem -Directory '.\\packages' -ErrorAction SilentlyContinue | ForEach-Object { Remove-All ($_.FullName + '\\node_modules'); Remove-All ($_.FullName + '\\.cache') }\""
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   }
 }

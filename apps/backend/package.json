@@ -2,7 +2,6 @@
   "name": "backend",
   "private": true,
   "dependencies": {
-    "@prisma/client": "^5.22.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
@@ -10,6 +9,7 @@
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
+    "@prisma/client": "^5.22.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/jsonwebtoken": "^9.0.10",
@@ -22,11 +22,12 @@
   "scripts": {
     "prisma:watch": "onchange 'prisma/schema.prisma' -- npx prisma generate",
     "predev": "prisma generate && prisma migrate dev",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev": "nodemon --watch src --ext ts --exec \"pnpm exec ts-node src/index.ts\"",
     "build": "tsc -b",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
-    "start": "node server.js"
+    "start": "node dist/index.js",
+    "studio": "prisma studio"
   },
   "version": "1.0.0",
   "description": "nodemon is a development tool for Node.js that automatically restarts your server whenever your source files change.",

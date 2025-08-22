@@ -1,6 +1,6 @@
-# masjidmunchies
+# MasjidMunchies
 
-A unique app designed for Muslims to discover halal restaurants, mosque proximity, mosque reviews, masjid events, and Islamic-only advertising. The solution includes a **web application (React)**, a **mobile app (React Native / Expo)**, and a **backend API (Node.js + TypeScript)**, all sharing the same login system and a common shared package.
+A unique app for Muslims to discover halal restaurants, mosque proximity, mosque reviews, masjid events, and Islamic-only advertising. Includes: **Web (React)**, **Mobile (React Native/Expo)**, and **Backend API (Node.js + TypeScript)**, sharing login and shared code.
 
 ---
 
@@ -9,10 +9,10 @@ A unique app designed for Muslims to discover halal restaurants, mosque proximit
 * **Frontend Web:** React + TypeScript (CRA)
 * **Frontend Mobile:** React Native + Expo + TypeScript
 * **Backend API:** Node.js + Express + TypeScript
-* **Database:** PostgreSQL (via **Supabase** for hosting/auth/storage)
-* **Monorepo Management:** Turborepo
-* **Shared Code:** TypeScript packages in `/packages/shared`
-* **Backlog & Docs:** Trello (sprint/backlog management), Google Drive (design & documentation)
+* **Database:** PostgreSQL (via Supabase, Prisma ORM)
+* **Monorepo:** Turborepo
+* **Shared Code:** `/packages/shared`
+* **Backlog & Docs:** Trello, Google Drive
 
 ---
 
@@ -23,7 +23,6 @@ masjidmunchies/
 │   package.json
 │   turbo.json
 │   tsconfig.json
-│   .gitignore
 │
 ├── apps/
 │   ├── backend/          # Node.js + Express + TypeScript
@@ -38,23 +37,48 @@ masjidmunchies/
 
 ## Getting Started
 
-1. **Install dependencies** at the root (handles all apps and packages):
+### Why `pnpm`?
+
+We use **pnpm** for faster, disk-efficient installs and stricter dependency management. It stores one copy of each package globally and links it to apps/packages, preventing “works on my machine” issues. pnpm integrates well with Turborepo, ensuring consistent installs across the monorepo. Most npm commands work the same, just replace `npm` with `pnpm`.
+
+
+1. **Install dependencies (root)**
 
 ```bash
-npm install
+pnpm install
 ```
 
-2. **Run all apps simultaneously** using Turborepo:
+> Installs dependencies for all apps and shared packages.
+
+2. **Clean all caches (optional)**
 
 ```bash
-npm run dev
+pnpm run clean:all
 ```
 
-This will start:
+> Removes `node_modules`, `.cache` folders from all apps/packages, and the root `pnpm-lock.yaml`. Use if dependencies break.
 
-* **Backend** on port `3000` → [http://localhost:3000](http://localhost:3000)
-* **Web app** on port `3001` → [http://localhost:3001](http://localhost:3001)
-* **Mobile app (Expo)** → Metro Bundler starts on `19000+`
+3. **Run all apps concurrently**
+
+```bash
+pnpm run start:all
+```
+
+> Backend → `http://localhost:3000`
+> Web → `http://localhost:3001`
+> Mobile (Expo) → Metro Bundler on `19000+`
+
+> ⚠️ **Database note:** The backend database will not work without the `.env` file. Get it from Ismaeel Varis.
+
+4. **Run Prisma Studio (ORM GUI)**
+
+```bash
+cd apps/backend
+pnpm prisma studio
+```
+
+> Opens the database GUI in a new browser tab for exploring and editing data.
+> Make sure `prisma` and `@prisma/client` are version `5.22.0` to avoid version conflicts.
 
 ---
 
@@ -64,63 +88,53 @@ This will start:
 
 ```bash
 cd apps/backend
-npm run dev
+pnpm run dev
 ```
-
-* Runs backend with **ts-node-dev**
-* Hot reload works for TypeScript changes
 
 ### Web App
 
 ```bash
 cd apps/frontend-web
-npm start
+pnpm start
 ```
-
-* Starts React web app on **[http://localhost:3001](http://localhost:3001)**
-* Make sure `.env` file contains `PORT=3001`
 
 ### Mobile App (Expo)
 
 ```bash
 cd apps/frontend-mobile
-npm run dev
+pnpm run dev
 # or
 npx expo start
 ```
 
-* Starts Expo Metro Bundler
-* Make sure `@types/react` and `@types/react-native` are installed for TypeScript
-
 ---
 
-## Useful `npm run` Commands
+## Useful Commands
 
-At the **root** (using Turborepo):
+**Root (monorepo-wide):**
 
 ```bash
-npm run dev      # Run all apps concurrently
-npm run build    # Build all apps/packages (if applicable)
-npm run lint     # Run linter across all packages
-npm run test     # Run tests across all packages
+pnpm run start:all   # Run all apps concurrently
+pnpm run build       # Build all apps/packages
+pnpm run lint        # Run linter
+pnpm run test        # Run tests
+pnpm run clean:all   # Remove node_modules, .cache, lock files
 ```
 
-Per app (inside each `apps/` folder):
+**Per app:**
 
 ```bash
-npm run dev      # Start development server
-npm run build    # Build the app
-npm start        # Alias for starting dev server (web/mobile)
+pnpm run dev
+pnpm run build
+pnpm start
+pnpm run studio   # Open Prisma Studio (backend only)
 ```
 
 ---
 
 ## Troubleshooting
 
-### 1. Port Conflicts
-
-* Backend uses port `3000`, Web uses `3001`.
-* If ports are in use:
+* **Port conflicts:**
 
 ```bash
 # Windows PowerShell
@@ -128,61 +142,46 @@ netstat -ano | findstr :3000
 taskkill /PID <PID> /F
 ```
 
-### 2. Missing TypeScript Types
+* **Missing TypeScript types:**
 
 ```bash
 # Web
 cd apps/frontend-web
-npm install --save-dev @types/react @types/react-dom
+pnpm install -D @types/react @types/react-dom
 
 # Mobile
 cd apps/frontend-mobile
-npm install --save-dev @types/react @types/react-native
+pnpm install -D @types/react @types/react-native
 ```
 
-### 3. Backend cannot find modules
+* **Backend cannot find modules:**
 
-* Ensure `src/index.ts` exists
-* Routes should be `.ts` files, not `.js`
-* Import using relative paths or `paths` in `tsconfig.json`
+  * Ensure `src/index.ts` exists
+  * Use relative imports or `paths` in `tsconfig.json`
+  * Routes should be `.ts` files, not `.js`
 
-### 4. Expo TypeScript Errors
+* **Expo TypeScript issues:**
 
 ```bash
 npx expo install typescript @types/react @types/react-native
 ```
 
----
+* **Prisma issues:**
 
-## Build
-
-* **Web:** `cd apps/frontend-web && npm run build` → outputs `build/`
-* **Backend:** Uses `ts-node-dev` for live TypeScript execution
-* **Mobile:** Expo handles builds with `expo build` or `eas build`
+  * Make sure `prisma` and `@prisma/client` are version `5.22.0` in `apps/backend/package.json`
+  * Run Prisma commands from `apps/backend` only
+  * Use `pnpm prisma studio` or add `"studio": "prisma studio"` to backend scripts
 
 ---
 
 ## Notes
 
-* `packages/shared` contains code shared between web, mobile, and backend
+* `packages/shared` is shared between web, mobile, and backend
 * Turborepo caches tasks in `.turbo/`
-* Ignore all `node_modules` via `.gitignore`
+* `.gitignore` ignores all `node_modules`
 
----
-
-## Adding a New App or Package
-
-1. **Create new folder** under `apps/` or `packages/`.
-2. **Add package.json** with `name` and `version`.
-3. **Add TypeScript config** (`tsconfig.json`) extending root tsconfig.
-4. **Add dev scripts** for `dev`, `build`, `lint`.
-5. **Include in `turbo.json`** references if you want to run it via `npm run dev`.
-
-This ensures the new app/package integrates seamlessly into the monorepo.
 ---
 
 ## License
 
-Copyright (c) 2025 Ismaeel Varis and MasjidMunchies  
-
-This project is licensed under the MIT License. See the [LICENSE](../../LICENSE) file for details.
+MIT © 2025 Ismaeel Varis

@@ -2,13 +2,13 @@
 
 ## Overview
 
-This document explains how to set up and run the backend locally, including using Prisma Studio to view and manage the database.
+This document explains how to set up and run the backend locally, including using Prisma Studio to view and manage the database. The backend is part of a Turborepo monorepo with shared packages and frontends.
 
 ---
 
 ## 1. Environment Variables
 
-You need the latest `.env` file from Ismaeel Varis before proceeding. Place it in `apps/backend/` (gitignored). It should contain:
+You need the latest `.env` file from **Ismaeel Varis** before proceeding. Place it in `apps/backend/` (gitignored). Example:
 
 ```
 DATABASE_URL=postgresql://postgres:<YOUR_PASSWORD>@db.<PROJECT>.supabase.co:5432/postgres
@@ -16,27 +16,39 @@ JWT_SECRET=super-secret-jwt-key
 PORT=3000
 ```
 
-> Do not commit this file to GitHub.
+> ⚠️ Do **not** commit this file to GitHub. The backend database will not work without it.
 
 ---
 
 ## 2. Install Dependencies
 
+At the **root of the monorepo**:
+
 ```bash
-cd apps/backend
-npm install
+pnpm install
 ```
+
+> Installs dependencies for the backend, web, mobile, and shared packages.
+
+To clean and reset dependencies if needed:
+
+```bash
+pnpm run clean:all
+```
+
+> Removes `node_modules`, `.cache` folders from all apps/packages, and the root `pnpm-lock.yaml`.
 
 ---
 
 ## 3. Run Backend in Development
 
 ```bash
-npm run dev
+cd apps/backend
+pnpm run dev
 ```
 
 > **Note:** Nodemon automatically restarts the server when source files change.
-> **Important:** Prisma is automatically prepared when running this command (client generated and migrations applied if needed).
+> **Important:** `pnpm run dev` automatically runs Prisma generate and migrations if needed — no manual `prisma generate` is required.
 
 ---
 
@@ -48,47 +60,61 @@ Once the backend is running:
 npx prisma studio
 ```
 
-* Prisma Studio opens in your browser at `http://localhost:5555`.
-* You can browse, edit, and insert data in your database.
-* Only run locally; do not expose your database publicly.
+* Opens the database GUI in your browser at `http://localhost:5555`.
+* Browse, edit, and insert data in your database.
+* Only run locally; do **not** expose your database publicly.
 
-> ✅ You do **not** need to manually run `prisma generate` or `prisma migrate dev` before starting the backend — `npm run dev` handles that.
+> ✅ You do **not** need to manually run `prisma generate` or `prisma migrate dev` — `pnpm run dev` handles it.
 
 ---
 
 ## 5. Prisma Notes
 
-* `prisma generate` → updates the Prisma client, does **not touch the database**.
+* `prisma generate` → updates the Prisma client (does **not** modify the database).
 * Adding a new model:
 
-  ```bash
-  npx prisma migrate dev --name add_model_name
-  ```
+```bash
+npx prisma migrate dev --name add_model_name
+```
 
-  creates the table in the database.
 * Removing a model:
 
-  1. Delete it from `schema.prisma`.
-  2. Run migration:
+1. Delete it from `schema.prisma`.
+2. Run migration:
 
-     ```bash
-     npx prisma migrate dev --name remove_model_name
-     ```
+```bash
+npx prisma migrate dev --name remove_model_name
+```
 
-  **Caution:** this deletes the table and all its data.
-* Prisma does **not dynamically create tables**; migrations are required for schema changes.
-
----
-
-## 6. Notes
-
-* Always make sure you have the updated `.env` file from Ismaeel before running the backend.
-* Run `npm run dev` to start the backend server while developing.
-* Prisma Studio is strictly for local development and testing.
+> ⚠️ This deletes the table and all its data. Prisma does **not** dynamically create tables; migrations are required for schema changes.
 
 ---
 
-## Postman Collection
+## 6. Useful Commands
+
+**Backend (inside `apps/backend`)**:
+
+```bash
+pnpm run dev       # Start backend with live reload
+pnpm run build     # Compile TypeScript to JS
+pnpm run start     # Run compiled JS (production)
+pnpm run typecheck # Check TypeScript types
+pnpm run clean     # Remove dist folder
+```
+
+**Monorepo-wide (root)**:
+
+```bash
+pnpm run start:all # Run backend, web, and mobile concurrently
+pnpm run build     # Build all apps/packages
+pnpm run lint      # Run linter
+pnpm run test      # Run tests
+pnpm run clean:all # Remove node_modules, caches, lock files
+```
+
+---
+
+## 7. Postman Collection
 
 A ready-to-use Postman collection is included:
 
@@ -96,12 +122,19 @@ A ready-to-use Postman collection is included:
 apps/backend/postman/MasjidMunchies-API.postman_collection.json
 ```
 
-Import this file into Postman to quickly test all backend endpoints.
+Import this into Postman to test backend endpoints quickly.
+
+---
+
+## 8. Notes
+
+* Always use the latest `.env` from Ismaeel Varis.
+* Prisma Studio is for local development only.
+* The backend depends on shared packages in `/packages/shared`.
 
 ---
 
 ## License
 
-Copyright (c) 2025 Ismaeel Varis and MasjidMunchies  
-
-This project is licensed under the MIT License. See the [LICENSE](../../LICENSE) file for details.
+MIT © 2025 Ismaeel Varis
+This project is licensed under the [MIT License](../../LICENSE).
