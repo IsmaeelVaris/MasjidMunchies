@@ -1,8 +1,8 @@
 {
-  "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "$schema": "https://turborepo.org/schema.json",
+  "globalDependencies": ["pnpm-lock.yaml"],
+  "tasks": {
     "dev": {
-      "dependsOn": [],
       "cache": false
     },
     "build": {

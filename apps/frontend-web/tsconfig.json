@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx",          // <--- needed for React 18+
+    "jsx": "react-jsx",                  // React 18 JSX transform
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -9,7 +9,12 @@
     "baseUrl": ".",
     "paths": {
       "@shared/*": ["../../packages/shared/src/*"]
-    }
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "../../node_modules/@types"
+    ],
+    "types": ["react", "react-dom"]
   },
   "include": ["src"]
 }
