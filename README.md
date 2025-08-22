@@ -37,12 +37,21 @@ masjidmunchies/
 
 ## Getting Started
 
+### Install pnpm (if not already installed)
+
+Before running any `pnpm` commands, make sure `pnpm` is installed globally:
+
+```bash
+npm install -g pnpm
+```
+
+> Required to run `pnpm install`, `pnpm run start:all`, and other monorepo commands. Ensures faster installs and consistent dependencies.
+
 ### Why `pnpm`?
 
-We use **pnpm** for faster, disk-efficient installs and stricter dependency management. It stores one copy of each package globally and links it to apps/packages, preventing “works on my machine” issues. pnpm integrates well with Turborepo, ensuring consistent installs across the monorepo. Most npm commands work the same, just replace `npm` with `pnpm`.
+We use **pnpm** for faster, disk-efficient installs and stricter dependency management. It integrates well with Turborepo, ensuring consistent installs across the monorepo.
 
-
-1. **Install dependencies (root)**
+### Install dependencies (root)
 
 ```bash
 pnpm install
@@ -50,7 +59,7 @@ pnpm install
 
 > Installs dependencies for all apps and shared packages.
 
-2. **Clean all caches (optional)**
+### Clean all caches (optional)
 
 ```bash
 pnpm run clean:all
@@ -58,7 +67,7 @@ pnpm run clean:all
 
 > Removes `node_modules`, `.cache` folders from all apps/packages, and the root `pnpm-lock.yaml`. Use if dependencies break.
 
-3. **Run all apps concurrently**
+### Run all apps concurrently
 
 ```bash
 pnpm run start:all
@@ -70,7 +79,7 @@ pnpm run start:all
 
 > ⚠️ **Database note:** The backend database will not work without the `.env` file. Get it from Ismaeel Varis.
 
-4. **Run Prisma Studio (ORM GUI)**
+### Run Prisma Studio (ORM GUI)
 
 ```bash
 cd apps/backend
