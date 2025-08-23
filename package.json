@@ -22,7 +22,7 @@
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
-    "clean:all": "rimraf ./node_modules packages/*/node_modules apps/*/node_modules .cache ./apps/cache ./pnpm-lock.yaml"
+    "clean:all": "rimraf ./node_modules ./packages/*/node_modules ./apps/*/node_modules .cache ./apps/cache ./pnpm-lock.yaml"
   },
   "dependencies": {
     "express": "^5.1.0",
