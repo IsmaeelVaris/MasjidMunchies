@@ -1,0 +1,88 @@
+/* --------------------------------- */
+/* Hero Carousel Base                */
+/* --------------------------------- */
+
+/* Ensure Swiper container and slides take full height */
+.swiper,
+.swiper-wrapper,
+.swiper-slide {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* --------------------------------- */
+/* Hero Slide Styling                 */
+/* --------------------------------- */
+.hero-slide {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #17603B 0%, #17658C 100%);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  text-align: center;
+  transition: transform 0.8s ease-in-out;
+  perspective: 1200px;
+}
+
+.hero-slide h1 {
+  color: #fff;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  margin-bottom: 0.5rem;
+}
+
+.hero-slide p {
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 40rem;
+  margin-top: 1rem;
+}
+
+/* --------------------------------- */
+/* Swiper Arrows and Pagination       */
+/* --------------------------------- */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white !important; /* white arrows */
+  width: 2rem;
+  height: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border-radius: 0;
+  z-index: 10;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.swiper-button-prev { left: 0.5rem; }
+.swiper-button-next { right: 0.5rem; }
+
+.swiper-pagination-bullets {
+  bottom: 1rem !important;
+}
+
+.swiper-pagination-bullet {
+  background: white;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: #c49a3b;
+}
+
+/* Optional 3D tilt effect */
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+}

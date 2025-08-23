@@ -4,21 +4,33 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        black: "var(--color-black)",
         green: "var(--color-green)",
+        "green-dark": "var(--color-green-dark)",
         gold: "var(--color-gold)",
         blue: "var(--color-blue)",
-        white: "var(--color-white)",
-
-        bgDark: "var(--bg-dark)",
-        bgSecondary: "var(--bg-secondary)",
-        bgAccent: "var(--bg-accent)",
-
-        textPrimary: "var(--text-primary)",
-        textSecondary: "var(--text-secondary)",
-        textGreen: "var(--text-green)",
-        textGold: "var(--text-gold)",
-        textBlue: "var(--text-blue)",
+        red: "#E03E3E",
+        white: "var(--text-white)",
+        "bg-dark": "var(--bg-dark)",
+        "bg-gray": "var(--bg-gray)",
+        "bg-light": "var(--bg-light)",
+        "text-secondary": "var(--text-secondary)",
+      },
+      fontFamily: {
+        sans: ["'Poppins'", "sans-serif"],
+        display: ["'Cairo'", "sans-serif"],
+      },
+      boxShadow: {
+        soft: "0 4px 12px rgba(0,0,0,0.2)",
+        glow: "0 0 20px rgba(194,157,13,0.5)",
+      },
+      keyframes: {
+        "slow-pulse": {
+          "0%, 100%": { opacity: "0.15" },
+          "50%": { opacity: "0.25" },
+        },
+      },
+      animation: {
+        "slow-pulse": "slow-pulse 8s ease-in-out infinite",
       },
     },
   },
