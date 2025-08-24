@@ -1,14 +1,22 @@
 import React, { useEffect } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/furniture/Navbar";
+import Footer from "../components/furniture/Footer";
 import HeroCarousel from "./HeroCarousel";
 import { FaMosque, FaUtensils, FaCalendarAlt, FaAd } from "react-icons/fa";
 import { landingPageClasses as c } from "../styles/classes";
 
-const features = [
-  { icon: <FaUtensils className="text-green w-12 h-12 mb-3" />, title: "Halal Restaurant Discovery", description: "Search and filter verified halal restaurants near you." },
-  { icon: <FaMosque className="text-gold w-12 h-12 mb-3" />, title: "Mosque Proximity & Reviews", description: "Find nearby mosques and view reviews." },
-  { icon: <FaCalendarAlt className="text-blue w-12 h-12 mb-3" />, title: "Masjid Events", description: "Stay updated on upcoming events and activities." },
-  { icon: <FaAd className="text-red w-12 h-12 mb-3" />, title: "Islamic-Only Ads", description: "Discover vetted and trusted Islamic advertisements." },
+type Feature = {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+};
+
+// Cast icons explicitly
+const features: Feature[] = [
+  { icon: FaUtensils as React.ComponentType<{ className?: string }>, title: "Halal Restaurant Discovery", description: "Search and filter verified halal restaurants near you." },
+  { icon: FaMosque as React.ComponentType<{ className?: string }>, title: "Mosque Proximity & Reviews", description: "Find nearby mosques and view reviews." },
+  { icon: FaCalendarAlt as React.ComponentType<{ className?: string }>, title: "Masjid Events", description: "Stay updated on upcoming events and activities." },
+  { icon: FaAd as React.ComponentType<{ className?: string }>, title: "Islamic-Only Ads", description: "Discover vetted and trusted Islamic advertisements." },
 ];
 
 const LandingPage: React.FC = () => {
@@ -24,24 +32,24 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className={c.container}>
-      <Navbar />
       <HeroCarousel />
 
-      {/* Features Section */}
       <section className={c.featuresSection}>
         <h2 className={c.featuresTitle}>Core Features</h2>
         <div className={c.featuresGrid}>
-          {features.map((f, i) => (
-            <div key={i} className={c.featureCard}>
-              {f.icon}
-              <h3 className={c.featureTitle}>{f.title}</h3>
-              <p className={c.featureDesc}>{f.description}</p>
-            </div>
-          ))}
+          {features.map((f, i) => {
+            const Icon = f.icon;
+            return (
+              <div key={i} className={c.featureCard}>
+                <Icon className="w-12 h-12 mb-3" />
+                <h3 className={c.featureTitle}>{f.title}</h3>
+                <p className={c.featureDesc}>{f.description}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
-      {/* Call To Action */}
       <section className={c.ctaSection}>
         <h2 className={c.ctaTitle}>Join the Community Today</h2>
         <p className={c.ctaDesc}>
@@ -49,16 +57,6 @@ const LandingPage: React.FC = () => {
         </p>
         <button className={c.ctaButton}>Download App</button>
       </section>
-
-      {/* Footer */}
-      <footer className={c.footer}>
-        <p>© 2025 MasjidMunchies. All rights reserved.</p>
-        <div className={c.footerIcons}>
-          <span className={c.footerIcon}>Twitter</span>
-          <span className={c.footerIcon}>Facebook</span>
-          <span className={c.footerIcon}>Instagram</span>
-        </div>
-      </footer>
     </div>
   );
 };

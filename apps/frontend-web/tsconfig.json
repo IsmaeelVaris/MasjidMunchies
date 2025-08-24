@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx",                  // React 18 JSX transform
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -14,7 +14,9 @@
       "./node_modules/@types",
       "../../node_modules/@types"
     ],
-    "types": ["react", "react-dom"]
+    "types": ["react", "react-dom"],
+    "target": "ES2017",
+    "lib": ["DOM", "ES2017"]
   },
   "include": ["src"]
 }
