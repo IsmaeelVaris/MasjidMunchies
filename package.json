@@ -22,8 +22,8 @@
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
-    "clean:all": "rimraf ./node_modules ./packages/*/node_modules ./apps/*/node_modules .cache ./apps/cache ./pnpm-lock.yaml"
-  },
+    "clean-windows:all": "powershell -Command \"function Remove-All($path){if(Test-Path $path){Get-ChildItem $path -Force -Recurse -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue}; Remove-Item $path -Force -ErrorAction SilentlyContinue}; Remove-All '.\\node_modules'; Remove-All '.\\pnpm-lock.yaml'; Remove-All '.\\.cache'; Get-ChildItem -Directory '.\\apps' -ErrorAction SilentlyContinue | ForEach-Object { Remove-All ($_.FullName + '\\node_modules'); Remove-All ($_.FullName + '\\.cache') }; Get-ChildItem -Directory '.\\packages' -ErrorAction SilentlyContinue | ForEach-Object { Remove-All ($_.FullName + '\\node_modules'); Remove-All ($_.FullName + '\\.cache') }\"",
+    "clean_linux_macOs:all": "rimraf ./node_modules packages/*/node_modules apps/*/node_modules .cache ./apps/cache ./pnpm-lock.yaml"  },
   "dependencies": {
     "express": "^5.1.0",
     "react": "18.3.1",
