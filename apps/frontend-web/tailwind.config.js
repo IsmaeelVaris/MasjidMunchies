@@ -4,26 +4,33 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Primary Theme Colors
-        primary: "var(--color-green)",
-        "primary-dark": "var(--color-green-dark)",
-        blue: "var(--color-blue)",
+        green: "var(--color-green)",
+        "green-dark": "var(--color-green-dark)",
         gold: "var(--color-gold)",
-
-        // Accent Colors
-        orange: "var(--color-orange)",
-        coral: "var(--color-coral)",
-
-        // Background Colors
-        "bg-light": "var(--bg-light)",
-        "bg-gray": "var(--bg-gray)",
+        blue: "var(--color-blue)",
+        red: "#E03E3E",
+        white: "var(--text-white)",
         "bg-dark": "var(--bg-dark)",
-
-        // Text Colors
-        "text-primary": "var(--text-primary)",
+        "bg-gray": "var(--bg-gray)",
+        "bg-light": "var(--bg-light)",
         "text-secondary": "var(--text-secondary)",
-        "text-white": "var(--text-white)",
-        "text-gray": "var(--text-gray)",
+      },
+      fontFamily: {
+        sans: ["'Poppins'", "sans-serif"],
+        display: ["'Cairo'", "sans-serif"],
+      },
+      boxShadow: {
+        soft: "0 4px 12px rgba(0,0,0,0.2)",
+        glow: "0 0 20px rgba(194,157,13,0.5)",
+      },
+      keyframes: {
+        "slow-pulse": {
+          "0%, 100%": { opacity: "0.15" },
+          "50%": { opacity: "0.25" },
+        },
+      },
+      animation: {
+        "slow-pulse": "slow-pulse 8s ease-in-out infinite",
       },
     },
   },

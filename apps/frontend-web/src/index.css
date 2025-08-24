@@ -2,5 +2,113 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Optional: variables after Tailwind */
-@import './styles/variables.css';
+/* ------------------------------- */
+/* Global Styles                   */
+/* ------------------------------- */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ------------------------------- */
+/* Buttons                         */
+/* ------------------------------- */
+button {
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+  background-color: #17603B;
+  color: #F8F9FA;
+  border-radius: 1rem;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #1F5D43;
+  transform: scale(1.05);
+}
+
+/* ------------------------------- */
+/* Feature Cards                   */
+/* ------------------------------- */
+.feature-card {
+  background-color: rgba(34, 34, 34, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  text-align: center;
+  padding: 2rem;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.feature-card svg {
+  transition: transform 0.4s ease, color 0.4s ease;
+}
+
+.feature-card:hover svg {
+  transform: scale(1.2) rotate(10deg);
+}
+
+/* ------------------------------- */
+/* Scroll Fade Animations          */
+/* ------------------------------- */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------------------------------- */
+/* Hero Gradient Background        */
+/* ------------------------------- */
+.bg-hero-gradient {
+  background: linear-gradient(135deg, #17603B 0%, #17658C 100%);
+}
+
+/* ------------------------------- */
+/* Optional Text Utilities         */
+/* ------------------------------- */
+.text-white-secondary {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.text-shadow-md {
+  text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* ------------------------------- */
+/* Optional Layout Helpers         */
+/* ------------------------------- */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rounded-xl {
+  border-radius: 1rem;
+}
+
+.rounded-2xl {
+  border-radius: 1.5rem;
+}
+
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}
