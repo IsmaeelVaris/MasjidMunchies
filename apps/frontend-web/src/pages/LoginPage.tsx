@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { landingPageClasses as c, globalClasses } from "../styles/classes";
+import { useAuth } from "../contexts/AuthContext"; // ← make sure AuthContext exists
 
 // TS-safe icon wrappers
 const GoogleIcon: React.FC<{ className?: string }> = (props) => <FaGoogle {...props} />;
@@ -64,6 +65,8 @@ const FloatingInput: React.FC<{
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
+  const { login } = useAuth(); // ← login function from AuthContext
+
   const [tab, setTab] = useState<"login" | "register" | "forgot">("login");
   const [form, setForm] = useState({ email: "", password: "", name: "", forgotType: "password" });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -78,12 +81,14 @@ const LoginPage: React.FC = () => {
   };
 
   const handleLogin = () => {
-    // TODO: Add actual login logic
+    // You can add form validation here if needed
+    login(); // sets isLoggedIn = true
     navigate("/dashboard");
   };
 
   const handleRegister = () => {
-    // TODO: Add actual registration logic
+    // You can add registration logic here
+    login(); // automatically log in after registration
     navigate("/dashboard");
   };
 
