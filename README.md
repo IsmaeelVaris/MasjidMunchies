@@ -1,5 +1,6 @@
 # MasjidMunchies
 
+This is a work in progress project.
 A unique app for Muslims to discover halal restaurants, mosque proximity, mosque reviews, masjid events, and Islamic-only advertising. Includes: **Web (React)**, **Mobile (React Native/Expo)**, and **Backend API (Node.js + TypeScript)**, sharing login and shared code.
 
 ---
