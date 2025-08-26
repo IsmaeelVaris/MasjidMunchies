@@ -14,7 +14,7 @@
       "./node_modules/@types",
       "../../node_modules/@types"
     ],
-    "types": ["react", "react-dom"],
+    "types": ["node", "google.maps", "react", "react-dom"],
     "target": "ES2017",
     "lib": ["DOM", "ES2017"]
   },

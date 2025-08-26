@@ -1,24 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, FC, SVGProps } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { landingPageClasses as c, globalClasses } from "../styles/classes";
-import { useAuth } from "../contexts/AuthContext"; // ← make sure AuthContext exists
+import { useAuth } from "../contexts/AuthContext";
 
-// TS-safe icon wrappers
-const GoogleIcon: React.FC<{ className?: string }> = (props) => <FaGoogle {...props} />;
-const FacebookIcon: React.FC<{ className?: string }> = (props) => <FaFacebook {...props} />;
-
+// --------------------
+// Type-safe social icons
+// --------------------
 type SocialLogin = {
-  Icon: React.FC<{ className?: string }>;
+  Icon: FC<SVGProps<SVGSVGElement>>;
   label: string;
   style: string;
 };
 
 const socialLogins: SocialLogin[] = [
-  { Icon: GoogleIcon, label: "Login with Google", style: "bg-[#4285F4] text-white hover:bg-[#357ae8]" },
-  { Icon: FacebookIcon, label: "Login with Facebook", style: "bg-[#1877F2] text-white hover:bg-[#155db2]" },
+  {
+    Icon: FaGoogle as FC<SVGProps<SVGSVGElement>>,
+    label: "Login with Google",
+    style: "bg-[#4285F4] text-white hover:bg-[#357ae8]",
+  },
+  {
+    Icon: FaFacebook as FC<SVGProps<SVGSVGElement>>,
+    label: "Login with Facebook",
+    style: "bg-[#1877F2] text-white hover:bg-[#155db2]",
+  },
 ];
 
+// --------------------
+// Form validators
+// --------------------
 const validators: Record<string, (val: string) => string> = {
   email: (val) => (/\S+@\S+\.\S+/.test(val) ? "" : "Invalid email"),
   password: (val) =>
@@ -28,8 +38,10 @@ const validators: Record<string, (val: string) => string> = {
   name: (val) => (val.length > 0 ? "" : "Name is required"),
 };
 
+// --------------------
 // Floating Input Component
-const FloatingInput: React.FC<{
+// --------------------
+const FloatingInput: FC<{
   label: string;
   type?: string;
   name: string;
@@ -53,8 +65,11 @@ const FloatingInput: React.FC<{
         className="peer w-full p-4 pt-6 rounded-xl bg-bg-dark text-text-white focus:outline-none focus:ring-2 focus:ring-gold"
       />
       <label
-        className={`absolute left-4 transition-all duration-200 cursor-text
-          ${isFloating ? "top-1 text-text-white text-sm" : "top-4 text-text-secondary text-base"}`}
+        className={`absolute left-4 transition-all duration-200 cursor-text ${
+          isFloating
+            ? "top-1 text-text-white text-sm"
+            : "top-4 text-text-secondary text-base"
+        }`}
       >
         {label}
       </label>
@@ -63,15 +78,25 @@ const FloatingInput: React.FC<{
   );
 };
 
-const LoginPage: React.FC = () => {
+// --------------------
+// Login Page
+// --------------------
+const LoginPage: FC = () => {
   const navigate = useNavigate();
-  const { login } = useAuth(); // ← login function from AuthContext
+  const { login } = useAuth();
 
   const [tab, setTab] = useState<"login" | "register" | "forgot">("login");
-  const [form, setForm] = useState({ email: "", password: "", name: "", forgotType: "password" });
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    name: "",
+    forgotType: "password",
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value, type, checked } = e.target as HTMLInputElement;
     const val = type === "checkbox" ? checked.toString() : value;
     setForm((prev) => ({ ...prev, [name]: val }));
@@ -81,14 +106,12 @@ const LoginPage: React.FC = () => {
   };
 
   const handleLogin = () => {
-    // You can add form validation here if needed
-    login(); // sets isLoggedIn = true
+    login();
     navigate("/dashboard");
   };
 
   const handleRegister = () => {
-    // You can add registration logic here
-    login(); // automatically log in after registration
+    login();
     navigate("/dashboard");
   };
 
@@ -119,26 +142,9 @@ const LoginPage: React.FC = () => {
           <div className="flex flex-col gap-4">
             {tab === "login" && (
               <>
-                <FloatingInput
-                  label="Email"
-                  name="email"
-                  value={form.email}
-                  type="email"
-                  onChange={handleChange}
-                  error={errors.email}
-                />
-                <FloatingInput
-                  label="Password"
-                  name="password"
-                  value={form.password}
-                  type="password"
-                  onChange={handleChange}
-                  error={errors.password}
-                />
-                <button
-                  className={`${globalClasses.btnPrimary} w-full bg-green-dark hover:bg-green-dark/90`}
-                  onClick={handleLogin}
-                >
+                <FloatingInput label="Email" name="email" value={form.email} type="email" onChange={handleChange} error={errors.email} />
+                <FloatingInput label="Password" name="password" value={form.password} type="password" onChange={handleChange} error={errors.password} />
+                <button className={`${globalClasses.btnPrimary} w-full bg-green-dark hover:bg-green-dark/90`} onClick={handleLogin}>
                   Login
                 </button>
               </>
@@ -146,39 +152,16 @@ const LoginPage: React.FC = () => {
 
             {tab === "register" && (
               <>
-                <FloatingInput
-                  label="Full Name"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  error={errors.name}
-                />
-                <FloatingInput
-                  label="Email"
-                  name="email"
-                  value={form.email}
-                  type="email"
-                  onChange={handleChange}
-                  error={errors.email}
-                />
-                <FloatingInput
-                  label="Password"
-                  name="password"
-                  value={form.password}
-                  type="password"
-                  onChange={handleChange}
-                  error={errors.password}
-                />
+                <FloatingInput label="Full Name" name="name" value={form.name} onChange={handleChange} error={errors.name} />
+                <FloatingInput label="Email" name="email" value={form.email} type="email" onChange={handleChange} error={errors.email} />
+                <FloatingInput label="Password" name="password" value={form.password} type="password" onChange={handleChange} error={errors.password} />
                 <div className="flex items-center gap-2">
                   <input type="checkbox" id="marketing" />
                   <label htmlFor="marketing" className="text-text-secondary text-sm cursor-pointer">
                     Subscribe to marketing emails
                   </label>
                 </div>
-                <button
-                  className={`${globalClasses.btnPrimary} w-full bg-green-dark hover:bg-green-dark/90`}
-                  onClick={handleRegister}
-                >
+                <button className={`${globalClasses.btnPrimary} w-full bg-green-dark hover:bg-green-dark/90`} onClick={handleRegister}>
                   Register
                 </button>
               </>
@@ -196,17 +179,8 @@ const LoginPage: React.FC = () => {
                   <option value="username">Username</option>
                   <option value="email">Email</option>
                 </select>
-                <FloatingInput
-                  label="Enter your email or username"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  error={errors.email}
-                />
-                <button
-                  className={`${globalClasses.btnPrimary} w-full bg-gold hover:bg-gold/90`}
-                  onClick={() => navigate("/dashboard")}
-                >
+                <FloatingInput label="Enter your email or username" name="email" value={form.email} onChange={handleChange} error={errors.email} />
+                <button className={`${globalClasses.btnPrimary} w-full bg-gold hover:bg-gold/90`} onClick={() => navigate("/dashboard")}>
                   Recover
                 </button>
               </>
@@ -222,10 +196,7 @@ const LoginPage: React.FC = () => {
 
           <div className="flex flex-col gap-3">
             {socialLogins.map(({ Icon, label, style }, i) => (
-              <button
-                key={i}
-                className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl transition-all duration-300 ease-in-out transform hover:scale-105 ${style}`}
-              >
+              <button key={i} className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl transition-all duration-300 ease-in-out transform hover:scale-105 ${style}`}>
                 <Icon className="text-xl" /> {label}
               </button>
             ))}
