@@ -1,11 +1,13 @@
 /// <reference types="google.maps" />
+
 import React, { useState, useEffect, useRef } from "react";
-import { landingPageClasses as c } from "../styles/classes";
+import { dashboardClasses as c, globalClasses } from "../styles/classes";
 
 const DashboardPage: React.FC = () => {
   const [locationInput, setLocationInput] = useState("");
   const [coords, setCoords] = useState<google.maps.LatLngLiteral | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
+  const infoWindowRef = useRef<google.maps.InfoWindow | null>(null);
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
@@ -18,6 +20,8 @@ const DashboardPage: React.FC = () => {
         mapRef.current = new google.maps.Map(mapElement, {
           center: { lat: 42.2808, lng: -83.7430 },
           zoom: 13,
+          mapTypeControl: false,
+          streetViewControl: false,
         });
       }
     };
@@ -34,11 +38,34 @@ const DashboardPage: React.FC = () => {
     }
   }, [apiKey]);
 
+  const showInfoWindow = (position: google.maps.LatLngLiteral, content: string) => {
+    if (!mapRef.current) return;
+
+    if (infoWindowRef.current) infoWindowRef.current.close();
+
+    infoWindowRef.current = new google.maps.InfoWindow({
+      content: `<div style="
+        background-color: #F8F8F2; 
+        color: #1C1D21; 
+        padding: 10px 14px; 
+        border-radius: 12px; 
+        border: 1px solid rgba(0,0,0,0.08); 
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      ">${content}</div>`,
+      position,
+    });
+
+    infoWindowRef.current.open({
+      anchor: new google.maps.Marker({ position, map: mapRef.current }),
+      map: mapRef.current,
+    });
+  };
+
   const handleUseLocation = () => {
-    if (!apiKey) {
-      alert("Google Maps API key not set.");
-      return;
-    }
+    if (!apiKey) return alert("Google Maps API key not set.");
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -49,11 +76,20 @@ const DashboardPage: React.FC = () => {
           setCoords(userLocation);
           mapRef.current?.setCenter(userLocation);
 
-          new google.maps.Marker({
+          const marker = new google.maps.Marker({
             position: userLocation,
             map: mapRef.current!,
             title: "You are here",
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              fillColor: "#145230", // green-dark
+              fillOpacity: 1,
+              strokeWeight: 0,
+              scale: 8,
+            },
           });
+
+          showInfoWindow(userLocation, "📍 You are here");
 
           const geocoder = new google.maps.Geocoder();
           geocoder.geocode({ location: userLocation }, (results, status) => {
@@ -74,68 +110,66 @@ const DashboardPage: React.FC = () => {
   };
 
   return (
-    <div className="font-sans bg-bg-dark text-white min-h-screen pt-24">
+    <div className={c.container}>
       {/* Welcome Banner */}
-      <section className="bg-gradient-to-r from-[#145230] via-[#17658C] to-[#1B4D3E] py-12 rounded-b-3xl shadow-lg text-center px-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">
-          Welcome back! 👋
-        </h1>
-        <p className="mt-3 text-lg text-white/90 max-w-2xl mx-auto">
+      <section className={c.welcomeBanner}>
+        <h1 className={c.welcomeTitle}>Welcome back! 👋</h1>
+        <p className={c.welcomeDesc}>
           Explore halal dining, mosques, events, and community updates tailored for you.
         </p>
       </section>
 
       {/* Search & Map Section */}
-      <section className="py-28 px-4 flex flex-col items-center">
-        <div className="w-full max-w-4xl bg-[rgba(34,34,34,0.85)] backdrop-blur-md rounded-3xl shadow-xl p-8 flex flex-col items-center">
-          <h2 className="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg text-white">
-            Find Halal Restaurants Near You
-          </h2>
-          <p className="mb-8 text-xl md:text-2xl text-white/80 text-center">
+      <section className={c.searchSection}>
+        <div className={c.searchContainer}>
+          <h2 className={c.searchTitle}>Find Halal Restaurants Near You</h2>
+          <p className={c.searchDesc}>
             Enter your location or use GPS to explore halal dining options around you.
           </p>
 
-          <div className="w-full max-w-2xl flex flex-col gap-4 mt-6">
+          <div className="flex flex-col gap-4">
             <input
               type="text"
               value={locationInput}
               onChange={(e) => setLocationInput(e.target.value)}
               placeholder="🍽️ Enter location..."
-              className="w-full p-4 rounded-2xl bg-[rgba(11,12,16,0.85)] text-text-white shadow-md focus:outline-none focus:ring-2 focus:ring-gold"
+              className="w-full p-4 rounded-xl bg-ivory text-bg-dark placeholder-bg-dark border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-dark transition"
             />
-            <button className="rounded-xl font-semibold px-8 py-3 bg-[#17603B] text-text-white hover:bg-[#1F5D43] transition-all w-full">
+            <button
+              className={`${globalClasses.btnPrimary} w-full bg-green hover:bg-green-dark`}
+            >
               Search
             </button>
 
-            <div className="flex items-center gap-2 my-2 text-gray-500 w-full">
-              <div className="flex-grow h-px bg-gray-700"></div>
-              <span className="text-sm font-medium text-white/60">OR</span>
-              <div className="flex-grow h-px bg-gray-700"></div>
+            <div className={c.orDivider}>
+              <div className={c.orLine}></div>
+              <span className={c.orText}>OR</span>
+              <div className={c.orLine}></div>
             </div>
 
             <button
               onClick={handleUseLocation}
-              className="w-full flex items-center justify-center gap-2 p-4 rounded-2xl shadow-md bg-[#1B4D3E] text-white font-semibold hover:bg-[#145230] transition"
+              className="w-full flex items-center justify-center gap-2 p-4 rounded-xl bg-blue text-text-white font-semibold hover:bg-blue-light transition shadow-md"
             >
               📍 Use My Location
             </button>
           </div>
+        </div>
 
-          {/* Map Display */}
-          <div
-            id="map"
-            className="w-full h-[400px] md:h-[600px] rounded-2xl overflow-hidden mt-8 bg-[rgba(11,12,16,0.85)] shadow-xl flex items-center justify-center text-white/70"
-          >
-            {!apiKey && (
-              <div className="text-center">
-                🗺️ Google Maps will appear here once you set <br />
-                <code>REACT_APP_GOOGLE_MAPS_API_KEY</code>
-              </div>
-            )}
-            {apiKey && !coords && (
-              <div className="text-center">🗺️ Map will appear here after you search or use location</div>
-            )}
-          </div>
+        {/* Map Display */}
+        <div id="map" className={c.mapContainer}>
+          {!apiKey && (
+            <div className="w-full h-full flex items-center justify-center text-text-secondary">
+              🗺️ Google Maps will appear here once you set
+              <br />
+              <code>REACT_APP_GOOGLE_MAPS_API_KEY</code>
+            </div>
+          )}
+          {apiKey && !coords && (
+            <div className="w-full h-full flex items-center justify-center text-text-secondary">
+              🗺️ Map will appear here after you search or use location
+            </div>
+          )}
         </div>
       </section>
     </div>

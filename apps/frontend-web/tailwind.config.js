@@ -6,14 +6,20 @@ module.exports = {
       colors: {
         green: "var(--color-green)",
         "green-dark": "var(--color-green-dark)",
-        gold: "var(--color-gold)",
         blue: "var(--color-blue)",
-        red: "#E03E3E",
+        "blue-light": "var(--color-blue-light)",
+        gold: "var(--color-gold)",
+        "gold-soft": "var(--color-gold-soft)",
+        red: "var(--color-red)",
+        ivory: "var(--color-ivory)",
+
         white: "var(--text-white)",
+        dark: "var(--text-dark)",
+        "text-secondary": "var(--text-secondary)",
+
         "bg-dark": "var(--bg-dark)",
         "bg-gray": "var(--bg-gray)",
         "bg-light": "var(--bg-light)",
-        "text-secondary": "var(--text-secondary)",
       },
       fontFamily: {
         sans: ["'Poppins'", "sans-serif"],

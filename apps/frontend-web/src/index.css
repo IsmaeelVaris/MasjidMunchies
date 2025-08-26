@@ -22,15 +22,15 @@ button {
 }
 
 .btn-primary {
-  background-color: #17603B;
-  color: #F8F9FA;
+  background-color: var(--color-green);
+  color: var(--text-white);
   border-radius: 1rem;
   padding: 0.75rem 2rem;
   font-weight: 600;
 }
 
 .btn-primary:hover {
-  background-color: #1F5D43;
+  background-color: var(--color-green-dark);
   transform: scale(1.05);
 }
 
@@ -38,10 +38,11 @@ button {
 /* Feature Cards                   */
 /* ------------------------------- */
 .feature-card {
-  background-color: rgba(34, 34, 34, 0.7);
+  background-color: var(--color-ivory);
+  color: var(--text-dark);
   backdrop-filter: blur(12px);
   border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   text-align: center;
   padding: 2rem;
@@ -49,11 +50,12 @@ button {
 
 .feature-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 .feature-card svg {
   transition: transform 0.4s ease, color 0.4s ease;
+  color: var(--color-green-dark);
 }
 
 .feature-card:hover svg {
@@ -78,7 +80,7 @@ button {
 /* Hero Gradient Background        */
 /* ------------------------------- */
 .bg-hero-gradient {
-  background: linear-gradient(135deg, #17603B 0%, #17658C 100%);
+  background: linear-gradient(135deg, var(--color-green-dark) 0%, var(--color-blue-light) 100%);
 }
 
 /* ------------------------------- */

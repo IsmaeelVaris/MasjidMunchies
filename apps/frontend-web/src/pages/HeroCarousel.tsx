@@ -12,9 +12,18 @@ import { heroCarouselClasses as c } from "../styles/classes";
 
 // Slide data
 const slides = [
-  { title: "Welcome to MasjidMunchies", subtitle: "Discover halal restaurants, mosques, and events near you." },
-  { title: "Halal Restaurant Discovery", subtitle: "Search and filter verified halal restaurants near you." },
-  { title: "Mosque Proximity & Events", subtitle: "Find nearby mosques, reviews, and community events." },
+  {
+    title: "Welcome to MasjidMunchies",
+    subtitle: "Discover halal restaurants, mosques, and events near you.",
+  },
+  {
+    title: "Halal Restaurant Discovery",
+    subtitle: "Search and filter verified halal restaurants near you.",
+  },
+  {
+    title: "Mosque Proximity & Events",
+    subtitle: "Find nearby mosques, reviews, and community events.",
+  },
 ];
 
 const HeroCarousel: React.FC = () => {
@@ -35,9 +44,15 @@ const HeroCarousel: React.FC = () => {
       >
         {slides.map((slide, idx) => (
           <SwiperSlide key={idx}>
-            <div className={c.slide}>
-              <h1 className={c.title}>{slide.title}</h1>
-              <p className={c.subtitle}>{slide.subtitle}</p>
+            <div
+              className={`${c.slide} bg-ivory border border-gray-300 shadow-md rounded-2xl p-8 flex flex-col items-center justify-center text-bg-dark`}
+            >
+              <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-bg-dark text-center">
+                {slide.title}
+              </h1>
+              <p className="text-lg md:text-xl text-bg-dark/80 text-center max-w-2xl">
+                {slide.subtitle}
+              </p>
             </div>
           </SwiperSlide>
         ))}

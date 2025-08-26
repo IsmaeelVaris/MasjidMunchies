@@ -1,14 +1,24 @@
 :root {
+  /* Primary Colors */
   --color-green: #1B4D3E;
   --color-green-dark: #145230;
   --color-blue: #0E3A5B;
+  --color-blue-light: #2E5A8A; /* softer vibrant blue */
   --color-gold: #C49A3B;
+  --color-gold-soft: #E5D8A1;
   --color-red: #E03E3E;
+  --color-ivory: #F8F8F2; /* light ivory for containers */
 
+  /* Backgrounds */
   --bg-dark: #0B0C10;
   --bg-gray: #1C1D21;
   --bg-light: #2A2B2F;
 
+  /* Text Colors */
   --text-white: #F8F9FA;
   --text-secondary: #B5B5B5;
+  --text-dark: #1C1D21; /* for text inside ivory containers */
+
+  --color-red-soft: #E66A6A; /* softer red for alerts */
+
 }
